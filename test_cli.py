@@ -5,7 +5,7 @@ import cli
 def test_view_inventory_prints_items(capsys, mocker):
     fake_response = Mock()
     fake_response.json.return_value = [
-        {"id": 1, "name": "Almond Milk", "brand": "Silk", "price": 3.99, "stock": 25}
+        {"id": 1, "name": "Almond Milk", "brand": "Brookside Dairy", "price": 3.99, "stock": 25}
     ]
     mocker.patch("cli.requests.get", return_value=fake_response)
 
@@ -27,7 +27,6 @@ def test_view_inventory_empty(capsys, mocker):
 
 
 def test_add_item_success(capsys, mocker):
-    # simulate the user typing: name, brand, price, stock
     mocker.patch("builtins.input", side_effect=["Eggs", "Farmhouse", "5.5", "12"])
 
     fake_response = Mock()

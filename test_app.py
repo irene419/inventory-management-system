@@ -13,8 +13,6 @@ def client():
 
 @pytest.fixture(autouse=True)
 def reset_inventory():
-    """Runs before every test so each one starts with the same clean data,
-    instead of tests interfering with each other by adding/deleting items."""
     inventory.clear()
     inventory.extend([
         {
@@ -38,7 +36,6 @@ def reset_inventory():
     yield
 
 
-
 def test_get_inventory(client):
     response = client.get("/inventory")
     assert response.status_code == 200
@@ -56,7 +53,7 @@ def test_get_single_item(client):
 def test_get_single_item_not_found(client):
     response = client.get("/inventory/9999")
     assert response.status_code == 404
- 
+
 
 def test_add_item(client):
     new_item = {"name": "Test Cereal", "brand": "TestBrand", "price": 5.99, "stock": 10}
@@ -71,13 +68,12 @@ def test_add_item_missing_name(client):
     response = client.post("/inventory", json={"brand": "NoName"})
     assert response.status_code == 400
 
- 
+
 def test_update_item(client):
     response = client.patch("/inventory/1", json={"stock": 100})
     assert response.status_code == 200
     data = response.get_json()
     assert data["stock"] == 100
-    # other fields should be untouched
     assert data["name"] == "Organic Almond Milk"
 
 
@@ -86,12 +82,10 @@ def test_update_item_not_found(client):
     assert response.status_code == 404
 
 
-
 def test_delete_item(client):
     response = client.delete("/inventory/2")
     assert response.status_code == 200
 
-    # confirm
     check = client.get("/inventory/2")
     assert check.status_code == 404
 
@@ -99,7 +93,6 @@ def test_delete_item(client):
 def test_delete_item_not_found(client):
     response = client.delete("/inventory/9999")
     assert response.status_code == 404
-
 
 
 def test_lookup_product_found(client, mocker):
@@ -146,7 +139,6 @@ def test_lookup_and_add(client, mocker):
     data = response.get_json()
     assert data["name"] == "Coca-Cola"
 
-    # confirm it actually landed in inventory
     check = client.get("/inventory")
     names = [item["name"] for item in check.get_json()]
     assert "Coca-Cola" in names
