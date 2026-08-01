@@ -89,14 +89,16 @@ python cli.py
 ```
 
 You'll see a menu:
-=== Inventory Management CLI ===
 
-View inventory
-Add new item
-Update item price/stock
-Delete item
-Find item on OpenFoodFacts
-Exit
+```
+=== Inventory Management CLI ===
+1. View inventory
+2. Add new item
+3. Update item price/stock
+4. Delete item
+5. Find item on OpenFoodFacts
+6. Exit
+```
 
 - **View inventory** — lists every item currently in stock
 - **Add new item** — prompts for name, brand, price, and stock
@@ -111,13 +113,14 @@ pytest -v
 ```
 
 This runs the full suite (API + CLI), 23 tests in total. External calls to OpenFoodFacts are mocked in the tests, so the test suite runs without needing an internet connection or the Flask server running.
-
 ## Project Structure
 
+```
 inventory-management-system/
-├── app.py # Flask REST API
-├── cli.py # Command-line interface
-├── test_app.py # Tests for the API
-├── test_cli.py # Tests for the CLI
+├── app.py           # Flask REST API
+├── cli.py            # Command-line interface
+├── test_app.py        # Tests for the API
+├── test_cli.py         # Tests for the CLI
 ├── requirements.txt
 └── README.md
+```
