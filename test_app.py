@@ -20,16 +20,16 @@ def reset_inventory():
         {
             "id": 1,
             "name": "Organic Almond Milk",
-            "brand": "Silk",
+            "brand": "Brookside Dairy",
             "price": 3.99,
             "stock": 25,
             "barcode": "0025293001165"
         },
         {
             "id": 2,
-            "name": "Peanut Butter",
-            "brand": "Jif",
-            "price": 4.49,
+            "name": "Green Tea",
+            "brand": "Ketepa",
+            "price": 1.49,
             "stock": 40,
             "barcode": "0051500255511"
         }
@@ -38,7 +38,6 @@ def reset_inventory():
     yield
 
 
-# GET tests
 
 def test_get_inventory(client):
     response = client.get("/inventory")
@@ -57,9 +56,7 @@ def test_get_single_item(client):
 def test_get_single_item_not_found(client):
     response = client.get("/inventory/9999")
     assert response.status_code == 404
-
-
-#POST tests 
+ 
 
 def test_add_item(client):
     new_item = {"name": "Test Cereal", "brand": "TestBrand", "price": 5.99, "stock": 10}
@@ -74,8 +71,7 @@ def test_add_item_missing_name(client):
     response = client.post("/inventory", json={"brand": "NoName"})
     assert response.status_code == 400
 
-
-#PATCH tests 
+ 
 def test_update_item(client):
     response = client.patch("/inventory/1", json={"stock": 100})
     assert response.status_code == 200
@@ -90,13 +86,12 @@ def test_update_item_not_found(client):
     assert response.status_code == 404
 
 
-#DELETE tests
 
 def test_delete_item(client):
     response = client.delete("/inventory/2")
     assert response.status_code == 200
 
-    # confirm it's actually gone
+    # confirm
     check = client.get("/inventory/2")
     assert check.status_code == 404
 
@@ -106,7 +101,6 @@ def test_delete_item_not_found(client):
     assert response.status_code == 404
 
 
-#OpenFoodFacts lookup tests
 
 def test_lookup_product_found(client, mocker):
     fake_response = Mock()

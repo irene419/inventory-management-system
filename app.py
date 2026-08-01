@@ -4,23 +4,22 @@ import requests
 app = Flask(__name__)
 
 
-HEADERS = {"User-Agent": "InventoryManagementApp/1.0 (irene@student.moringaschool.com)"}
-
+HEADERS = {"User-Agent": "InventoryManagementApp/1.0 (github.com/irene419)"}
 
 inventory = [
     {
         "id": 1,
         "name": "Organic Almond Milk",
-        "brand": "Silk",
+        "brand": "Brookside Dairy",
         "price": 3.99,
         "stock": 25,
         "barcode": "0025293001165"
     },
     {
         "id": 2,
-        "name": "Peanut Butter",
-        "brand": "Jif",
-        "price": 4.49,
+        "name": "Green Tea",
+        "brand": "Ketepa",
+        "price": 1.49,
         "stock": 40,
         "barcode": "0051500255511"
     }
